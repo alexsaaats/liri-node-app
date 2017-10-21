@@ -1,5 +1,4 @@
-//var tKeys = require('./Keys.js');
-//console.log(tKeys);
+
 
 var twitterKeys = {
   consumer_key: 'L73w7ZBdGn8QyZLAsNCBhKzxY',
@@ -22,6 +21,7 @@ var request = require("request");
 var prompt = require("prompt");
 var Spotify = require('node-spotify-api');
 
+
 //var tKeys = require('./Keys.js');
 //console.log(tKeys);
 
@@ -36,6 +36,8 @@ var spotifyvar = new Spotify({
   id: '247841dc8deb4be4b442213c66dcfb77',
   secret: '92d1577922c543248b03d2ec6ba6a84b'
 });
+
+var omdbkey = '40e9cece';
 
 
 
@@ -91,68 +93,31 @@ var spotifyvar = new Spotify({
 
                 else if (result.command === "movie-this") {
                   prompt.get(['movie'], function (err, result) {
-
                     console.log("Okay, I will get info about " + result.movie + " for you...")
-                      
-                    spotifyvar.search({ type: 'track', query: result.song }, function(err, data) {
                     if (err) {
                       return console.log('Error occurred: ' + err);
                     }
-                    console.log(data); 
+
+                    request("http://www.omdbapi.com/?apikey=" + omdbkey + "&t=" + result.movie, function(error, response, data) {
+                    // If the request was successful...
+                    if (!error && response.statusCode === 200) {
+                    // Then log the body from the site!
+                    console.log(data);
+                    }
                     });
                   });
                 }
 
 
-                    else (console.log("I don't understand what you're asking me to do. You can say mytweets, spotify-this-song, or movie-this. Please start over."));
+                      else if (result.command === "do-what-it-says") {
+                        console.log("This should use FS package to get values from random.txt and use it to call a LIRI function");
+                      }
+
+
+                          else (console.log("I don't understand what you're asking me to do. You can say mytweets, spotify-this-song, movie-this, or do-what-it-says. Please start over."));
 
 	  
-
+//Close my initial 'command' prompt
   });
 
 
-
-
-//Take these commands: 
-   //* `my-tweets`
-//var mytweets = process.argv[2];
-//if (mytweets === "my-tweets") {
-	//}
-
-   //* `spotify-this-song`
-var spotify = process.argv[2];
-if (spotify === "spotify-this-song") {
-	console.log("spotty");
-}
-
-   //* `movie-this`
-var movie = process.argv[2];
-if (movie === "movie-this") {
-	console.log("dutty movie");
-}
-
-   //* `do-what-it-says`
-var doit = process.argv[2];
-if (doit === "do-what-it-says") {
-	console.log("douuuing it");
-}
-
-
-/*
-  // If the code experiences any errors it will log the error to the console.
-  if (error) {
-    return console.log(error);
-  }
-
-  // We will then print the contents of data
-  console.log(data);
-
-  // Then split it by commas (to make it more readable)
-  var dataArr = data.split(",");
-
-  // We will then re-display the content as an array for later use.
-  console.log(dataArr);
-
-});
-
-*/
