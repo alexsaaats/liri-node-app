@@ -101,8 +101,24 @@ var omdbkey = '40e9cece';
                     request("http://www.omdbapi.com/?apikey=" + omdbkey + "&t=" + result.movie, function(error, response, data) {
                     // If the request was successful...
                     if (!error && response.statusCode === 200) {
-                    // Then log the body from the site!
-                    console.log(data);
+                    var moviedata = JSON.parse(data);
+                    
+                    //console.log(data);
+                    //console.log(moviedata);
+
+                    console.log("-------------------------------");
+                    console.log("-------------------------------");
+                    console.log("Title: " + moviedata.Title);
+                    console.log("Year: " + moviedata.Year);
+                    console.log("IMDB Rating: " + moviedata.Ratings[0].Value);
+                    console.log("Rotten Tomatoes Rating: " + moviedata.Ratings[1].Value);
+                    console.log("Country: " + moviedata.Country);
+                    console.log("Language: " + moviedata.Language);
+                    console.log("Plot: " + moviedata.Plot);
+                    console.log("Actors: " + moviedata.Actors);
+                    console.log("-------------------------------");
+                    console.log("-------------------------------");
+
                     }
                     });
                   });
