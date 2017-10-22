@@ -120,7 +120,35 @@ var omdbkey = '40e9cece';
 
                       //If they didn't ask for the movie, see if they asked for do what it says
                       else if (result.command === "do-what-it-says") {
-                        console.log("This should use FS package to get values from random.txt and use it to call a LIRI function");
+                        console.log("Okay, I will pick something for you. Let me do that now...");
+                        fs.readFile('random.txt', 'utf8', function(err, data) {
+                          if (err) throw err;
+                          
+                          data = data.split(",");
+                          //console.log(data);
+
+                          var action1 = data[0]
+                          var input1 = data[1]
+                          var action2 = data[2]
+                          var input2 = data[3]
+
+                          //console.log("Action1 = " + action1);
+                          //console.log("Input1 = " + input1);
+                          //console.log("Action2 = " + action2);
+                          //console.log("Input2 = " + input2);
+
+                          var randomnumber = Math.round((Math.random() * 1) + 1);
+                          console.log("Your random number is: " + randomnumber);
+
+                          if (randomnumber === 1) {
+                            getspotify(input1);
+                          }
+                            else if (randomnumber === 2) {
+                              getmovie(input2);
+                            }
+
+                        });
+                        
                       }
 
                           //If they didn't ask for any known function, tell them you're confused and provide directions.
@@ -131,3 +159,67 @@ var omdbkey = '40e9cece';
   });
 
 
+
+//FUNCTIONS  ****************************************************
+//These are used for the 'do what it says' commands
+
+
+//Music function
+function getspotify (input) {
+
+console.log("Okay, I will get info about " + input + " for you...")
+           
+spotifyvar.search({ type: 'track', query: input }, function(err, data) {
+if (err) {
+  return console.log('Error occurred: ' + err);
+}
+var artistname = data.tracks.items[0].album.artists[0].name;
+var songname = data.tracks.items[0].name;
+var previewlink = data.tracks.items[0].preview_url;
+var albumname = data.tracks.items[0].album.name;
+var songcount = data.tracks.total;
+
+//console.log(data);
+console.log("-------------------------------");
+console.log("-------------------------------");
+console.log("Artist: " + artistname);
+console.log("Song Name: " + songname);
+console.log("Preview Link: " + previewlink);
+console.log("Album Name: " + albumname);
+console.log("-------------------------------");
+console.log("NOTE: This is only the first of many songs you might have been looking for.")
+console.log("NOTE: Total count of songs with " + input + " in the name: " + songcount);
+console.log("-------------------------------");
+console.log("-------------------------------");
+
+});
+}
+
+
+//Movie function
+function getmovie (input) {
+console.log("Okay, I will get info about " + input + " for you...")
+
+request("http://www.omdbapi.com/?apikey=" + omdbkey + "&t=" + input, function(error, response, data) {
+// If the request was successful...
+  if (!error && response.statusCode === 200) {
+  var moviedata = JSON.parse(data);
+  
+  //console.log(data);
+  //console.log(moviedata);
+
+  console.log("-------------------------------");
+  console.log("-------------------------------");
+  console.log("Title: " + moviedata.Title);
+  console.log("Year: " + moviedata.Year);
+  console.log("IMDB Rating: " + moviedata.Ratings[0].Value);
+  console.log("Rotten Tomatoes Rating: " + moviedata.Ratings[1].Value);
+  console.log("Country: " + moviedata.Country);
+  console.log("Language: " + moviedata.Language);
+  console.log("Plot: " + moviedata.Plot);
+  console.log("Actors: " + moviedata.Actors);
+  console.log("-------------------------------");
+  console.log("-------------------------------");
+  }
+});
+}
