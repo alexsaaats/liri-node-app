@@ -54,6 +54,7 @@ var omdbkey = '40e9cece';
         }
       });
 
+
     if (result.command === "my-tweets") {
 
       console.log("Okay, I will print @alexsaaats latest tweets...")
@@ -78,6 +79,7 @@ var omdbkey = '40e9cece';
           });
   		});
     }
+
 
           //If they didn't ask for MyTweets, see if they asked for Spotify
           else if (result.command === "spotify-this-song") {
@@ -118,6 +120,7 @@ var omdbkey = '40e9cece';
             });
           }
 
+
                 //If they didn't ask for either of the first two, see if they asked for movie"
                 else if (result.command === "movie-this") {
                   prompt.get(['movie'], function (err, result) {
@@ -157,6 +160,7 @@ var omdbkey = '40e9cece';
                   });
                 }
 
+
                       //If they didn't ask for the movie, see if they asked for do what it says
                       else if (result.command === "do-what-it-says") {
                         console.log("Okay, I will pick something for you. Let me do that now...");
@@ -194,10 +198,9 @@ var omdbkey = '40e9cece';
                         });
                       }
 
-                       // 
 
                           //If they didn't ask for any known function, tell them you're confused and provide directions.
-                          else (console.log("I don't understand what you're asking me to do. You can say mytweets, spotify-this-song, movie-this, or do-what-it-says. Please start over."));
+                          else (console.log("I don't understand what you're asking me to do. You can say my-tweets, spotify-this-song, movie-this, or do-what-it-says. Please start over."));
                             fs.appendFile('log.txt', "The user entered a command that was not recognized. Logged at " + date.format(now, 'YYYY/MM/DD HH:mm:ss') + ",", function(err) {
                               if (err) {
                               console.log(err);
@@ -209,7 +212,7 @@ var omdbkey = '40e9cece';
 
 
 
-//FUNCTIONS  ****************************************************
+//FUNCTIONS FOR RANDOM.TXT  ****************************************************
 //These are used for the 'do what it says' commands
 
 
