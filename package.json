@@ -20,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/alexsaaats/liri-node-app/issues"
   },
-  "homepage": "https://github.com/alexsaaats/liri-node-app#readme"
+  "homepage": "https://github.com/alexsaaats/liri-node-app#readme",
+  "dependencies": {
+    "date-and-time": "^0.5.0",
+    "prompt": "^1.0.0",
+    "request": "^2.83.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.1"
+  }
 }
